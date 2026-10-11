@@ -10,9 +10,18 @@
           <img style="width: 40px" src="@/assets/imgs/logo.png" alt="" />
           <div style="margin-left: 10px">智能实验室预约系统</div>
         </div>
-        <div style="display: flex; align-items: center">
-          <img src="@/assets/imgs/logo.png" alt="" style="width: 30px; border-radius: 50%" />
-          <div>管理员</div>
+        <div>
+          <el-dropdown>
+            <div style="display: flex; align-items: center; cursor: pointer">
+              <img src="@/assets/imgs/logo.png" alt="" style="width: 30px; border-radius: 50%" />
+              <div style="margin-left: 3px">管理员</div>
+            </div>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
       </el-header>
       <el-container>
@@ -45,5 +54,15 @@
 </template>
 
 <script setup>
-import { Document, Menu as IconMenu, Location, Setting } from '@element-plus/icons-vue'
+import { Menu as IconMenu, Location, Setting, House } from '@element-plus/icons-vue'
+import router from '@/router'
+import { ElMessage } from 'element-plus'
+
+//模拟退出登录
+const logout = () => {
+  setTimeout(() => {
+    router.push('/login')
+    ElMessage.success('已登出')
+  }, 1000)
+}
 </script>

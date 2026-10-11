@@ -14,7 +14,9 @@ const router = createRouter({
         { path: 'equ', name: 'Equ', component: () => import('@/views/Equ.vue') },
         { path: 'user', name: 'User', component: () => import('@/views/User.vue') }
       ]
-    }
+    },
+    { path: '/login', name: 'Login', component: () => import('@/views/Login.vue') },
+    { path: '/register', name: 'Register', component: () => import('@/views/Register.vue') }
   ]
 })
 
