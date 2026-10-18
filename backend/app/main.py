@@ -19,6 +19,7 @@ from app.database import Base, engine
 # 导入模块，执行user.py全部代码
 from app.models import user
 from app.api.auth import router as auth_router
+from app.api import api
 
 # 打印看内存里识别到哪些表！！！
 print("====当前metadata内的表====")
@@ -27,6 +28,7 @@ print(list(Base.metadata.tables.keys()))
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+app.include_router(api)
 
 # ====新增调试打印====
 from app.api.auth import router as auth_router
@@ -51,6 +53,3 @@ def debug():
 @app.get("/")
 def root():
     return {"message": "FastAPI工程正在运行中"}
-
-
-

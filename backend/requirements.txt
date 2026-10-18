@@ -3,3 +3,8 @@ uvicorn==0.34.0
 sqlalchemy==2.0.41
 pymysql==1.1.1
 pydantic-settings==2.7.1
+
+#加密算法，用于对比密码的明文和密文
+bcrypt==5.0.0
+#生成JWT Token，进行Token解析，Token里携带的userid可以进一步查询
+PyJWT==2.13.0

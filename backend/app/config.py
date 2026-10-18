@@ -1,16 +1,23 @@
-#读取配置文件变量的标准步骤
+# 读取配置文件变量的标准步骤
+
+from re import S
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-class Settings(BaseSettings):
+
+class settings(BaseSettings):
     DATABASE_URL: str
+
+    JWT_SECRET_KEY: str
+    JWT_EXPIRE_HOURS: int = 24
+    JWT_ALGORITHM: str = "HS256"
 
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env", env_file_encoding="utf-8"
     )
 
 
-settings = Settings()#创建实例
+settings = settings()  # 创建实例
