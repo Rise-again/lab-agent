@@ -11,7 +11,9 @@ def creat_access_token(user_id: int) -> str:
 
     payload = {"user_id": user_id, "exp": expire}  # exp是固定key
 
-    return jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGOITHM)
+    return jwt.encode(
+        payload, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM
+    )
 
 
 # 解析

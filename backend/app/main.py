@@ -13,13 +13,26 @@
 #     return {"message": "FastAPI工程正在运行中"}
 
 
-from fastapi import FastAPI
+from email.policy import HTTP
+import http
+
+from fastapi import FastAPI, HTTPException
+from fastapi.exceptions import RequestValidationError
 from app.database import Base, engine
 
 # 导入模块，执行user.py全部代码
 from app.models import user
 from app.api.auth import router as auth_router
 from app.api import api
+
+# 导入异常处理器
+from app.common.exceptions import (
+    BusinessException,
+    bussiness_expecton_hadler,
+    http_expecton_hadler,
+    validation_expecton_hadler,
+    global_expecton_hadler,
+)
 
 # 打印看内存里识别到哪些表！！！
 print("====当前metadata内的表====")
@@ -29,6 +42,15 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 app.include_router(api)
+
+
+# 注册自定义异常
+app.add_exception_handler(BusinessException, bussiness_expecton_hadler)
+app.add_exception_handler(HTTPException, http_expecton_hadler)
+app.add_exception_handler(RequestValidationError, validation_expecton_hadler)
+# 全局异常兜底，必须放在最后注册
+app.add_exception_handler(Exception, global_expecton_hadler)
+
 
 # ====新增调试打印====
 from app.api.auth import router as auth_router

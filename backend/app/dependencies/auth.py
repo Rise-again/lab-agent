@@ -5,10 +5,12 @@ from app.database import get_db
 from app.utils.jwt import decode_access_token
 from app.models.user import User
 
+# 获取输入的token
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 
 # 在进入接口之前会先执行这些逻辑，任何一部有异常就结束
+# 上面收到的token传进下面这个程序
 def get_current_user(
     token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
 ) -> User:
