@@ -48,3 +48,9 @@ a {
 img {
     max-width: 100%;
 }
+
+/* 清除按钮默认样式，管理员按钮去边框 */
+.el-tooletip__trigger{
+    outline: none !important;
+}
+

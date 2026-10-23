@@ -30,7 +30,7 @@
             type="primary"
             size="large"
             style="width: 100%"
-            @click="login"
+            @click="handleLogin"
             :loading="loadingValue"
           >
             登 录
@@ -47,8 +47,11 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
+import { loginApi } from '@/api/auth'
+import { useUser } from '@/utils/user' //应用于保存登录信息
 import { ElMessage } from 'element-plus'
 import router from '@/router'
+const { saveLoginData } = useUser()
 
 const form = reactive({
   username: '',
@@ -58,12 +61,17 @@ const form = reactive({
 const loadingValue = ref(false)
 
 //模拟登录
-const login = () => {
+const handleLogin = async () => {
   loadingValue.value = true
-  setTimeout(() => {
-    ElMessage.success('登录成功')
-    router.push('/manager/home')
-  }, 2000)
+  const res = await loginApi(form)
+  loadingValue.value = false //有了结果就设false，不然会一直转圈
+  // console.log(res)
+  // if (res.code === 200) {
+  saveLoginData(res.data) //保存登录信息
+  ElMessage.success('登录成功')
+  router.push('/manager/home')
+  //不用写否则，在request里已经写过了
+  // }
 }
 </script>
 
