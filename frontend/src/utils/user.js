@@ -15,7 +15,7 @@ export function useUser() {
 
   function updateUser(user) {
     setUserInfo(user)
-    userInfo.value = data.useUser
+    userInfo.value = user
   }
 
   function reloadUser() {

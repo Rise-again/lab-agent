@@ -1,11 +1,13 @@
 import bcrypt
 
 
+# 密码加密方法
 def hash_password(password: str) -> str:
     """对密码加密"""
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
 
+# 密码验证方法
 def verify_password(password: str, hashed_password: str) -> bool:
     """验证密码的有效性"""
     """ "123" -> "xxsdasdasfa" """
